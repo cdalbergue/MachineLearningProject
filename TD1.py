@@ -87,7 +87,12 @@ def linearregression(X, Y, epsilon, nbiteration) :
 		W = W + 2 * X*(X * W -Y) * epsilon
 	return W
 
-print(linearregression(vec, mat1, 0.0000001, 1000))
+print("linearregression = " + str(linearregression(vec, mat1, 0.0000001, 1000)))
+
+
+# Question 3
+mat=np.loadtxt(open("winequality-red.csv","rb"),delimiter=";",skiprows=1)
+print(mat)
 
 
 

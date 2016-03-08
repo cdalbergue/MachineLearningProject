@@ -118,24 +118,3 @@ mat=np.loadtxt("fichier.txt")
 np.savetxt("fichier.txt", mat)
 
 """
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
