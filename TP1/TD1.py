@@ -46,7 +46,8 @@ print polynom(mat2)
 def rmse(vecteur1, vecteur2) :
 	diff = vecteur1 - vecteur2
 	# différence de deux vecteurs au carré
-	return diff ** 2
+	return np.sqrt(np.mean(diff ** 2))
+	#return np.mean(diff ** 2)
 
 v1 = np.array([1,2,3,4])
 v2 = np.array([6,5,10,23])
@@ -91,8 +92,36 @@ print("linearregression = " + str(linearregression(vec, mat1, 0.0000001, 1000)))
 
 
 # Question 3
-mat=np.loadtxt(open("winequality-red.csv","rb"),delimiter=";",skiprows=1)
-print(mat)
+data=np.loadtxt(open("winequality-red.csv","rb"),delimiter=";",skiprows=1)
+# Prendre la dernière colone
+Y=data[:,-1]
+
+# prendre les 10 premières colones
+X=data[:,0:11]
+
+def linearregression2(X, Y, epsilon, nbiteration) : 
+	W = np.random.rand(X.shape[1])
+	for i in range(nbiteration) :
+		#W = W + 2 * X*(X * W -Y) * epsilon
+		#W = W + (np.dot((np.dot(X,Y)-Y), (2*X)))*epsilon
+		W = W - 2*epsilon*np.dot(X.transpose(),np.dot(X, W) - Y)
+		print(rmse(np.dot(X,W),Y))
+
+	return W
+
+print X.shape
+print Y.shape
+w = linearregression2(X, Y, 0.00000001, 10000)
+
+# test du modele
+vin = np.array([7.3,0.65,0,1.2,0.065,15,21,0.9946,3.39,0.47,10])
+
+Ypred = np.dot(vin,w)
+erreur = Y - Ypred
+print Ypred
+print w
+
+
 
 
 
