@@ -1,5 +1,15 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+######################################
+#
+# Auteurs : CISSE Chafik, DALBERGUE Clément, KECHCHANY Hajar
+# Version : 1.0.0
+# Contexte : Projet étudiant machine learning
+# Objectifs : 
+# Comprendre les algorithmes de regression linéaire
+# + et les pratiquer avec des données 
+#
+######################################
 import numpy as np
 import math as m
 
@@ -24,6 +34,7 @@ def multi(vecteur, matrice) :
 
 	# Multiplication vecteur - matrice
 	return np.dot(vecteur_carre, matrice)
+
 
 print(multi(vec,mat1))
 print(multi(vec,mat2))
@@ -105,21 +116,32 @@ def linearregression2(X, Y, epsilon, nbiteration) :
 		#W = W + 2 * X*(X * W -Y) * epsilon
 		#W = W + (np.dot((np.dot(X,Y)-Y), (2*X)))*epsilon
 		W = W - 2*epsilon*np.dot(X.transpose(),np.dot(X, W) - Y)
+		# On calcule la RMSE pour chaque valeur calculée
 		print(rmse(np.dot(X,W),Y))
-
+	# On retourne notre vecteur de poid W calculé
 	return W
 
-print X.shape
-print Y.shape
+
+#  
 w = linearregression2(X, Y, 0.00000001, 10000)
 
 # test du modele
 vin = np.array([7.3,0.65,0,1.2,0.065,15,21,0.9946,3.39,0.47,10])
+"""
+On pourrait tester le modèle avec une matrice de vin bien plus grande
+Ici, nous avons choisi de prédire la note d'un vin choisi au hasard dans le fichier
+wine.
+"""
 
-Ypred = np.dot(vin,w)
-erreur = Y - Ypred
-print Ypred
-print w
+# Definition de la fonction de prediction
+def pred(w, Y):
+	Ypred = np.dot(vin,w)
+	return Ypred
+
+
+print pred(w, vin)
+
+
 
 
 
